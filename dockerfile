@@ -49,42 +49,15 @@ RUN apt-get install -y mesa-common-dev
 
 # ========== Roboschool ==========
 
-ENV ROBOSCHOOL_PATH /opt/roboschool
-
-RUN /opt/conda/envs/deeprlbootcamp/bin/pip install PyQt5==5.9
-
-ENV PKG_CONFIG_PATH /opt/conda/envs/deeprlbootcamp/lib/pkgconfig
-
-
-RUN git clone https://github.com/openai/roboschool.git $ROBOSCHOOL_PATH
-RUN cd $ROBOSCHOOL_PATH && git checkout c1e72a280f5b9fda2b9215b93e23b3c4861bce4b
-
-RUN git clone https://github.com/olegklimov/bullet3 -b roboschool_self_collision /opt/bullet3 && \
-    cd /opt/bullet3 && \
-    git checkout 3687507ddc04a15de2c5db1e349ada3f2b34b3d6 && \
-    mkdir build && \
-    cd build && \
-    cmake -DBUILD_SHARED_LIBS=ON -DUSE_DOUBLE_PRECISION=1 -DCMAKE_INSTALL_PREFIX:PATH=$ROBOSCHOOL_PATH/roboschool/cpp-household/bullet_local_install -DBUILD_CPU_DEMOS=OFF -DBUILD_BULLET2_DEMOS=OFF -DBUILD_EXTRAS=OFF  -DBUILD_UNIT_TESTS=OFF -DBUILD_CLSOCKET=OFF -DBUILD_ENET=OFF -DBUILD_OPENGL3_DEMOS=OFF .. && \
-    make -j4 && \
-    make install
 
 RUN apt-get install libglu1-mesa-dev -y
-RUN apt-get install qtbase5-dev -y
-
-RUN /opt/conda/envs/deeprlbootcamp/bin/pip install -e $ROBOSCHOOL_PATH
+RUN apt-get install qt4-dev-tools -y
 
 RUN apt-get install -y mesa-utils
 
 RUN /opt/conda/envs/deeprlbootcamp/bin/pip install awscli
 
-WORKDIR /root/code/bootcamp_pg
 
-# Hot fix
-RUN cd $ROBOSCHOOL_PATH && git pull origin master && git checkout a7e7fd5cc8f81e9691f9bbe8c9aab8e87c79bb7d
-
-RUN apt-get install -y iproute iputils-ping
-
-#RUN conda install -y -n deeprlbootcamp notebook
 
 RUN apt-get install -y libboost-filesystem-dev libboost-system-dev flex
 
@@ -93,7 +66,7 @@ RUN git clone https://github.com/LARG/HFO.git && \
     cd HFO && \
     mkdir build && \
     cd build && \
-    cmake -DBUILD_SOCCERWINDOW=False -DCMAKE_BUILD_TYPE=RelwithDebInfo ..
+    cmake -DCMAKE_BUILD_TYPE=RelwithDebInfo ..
     
 WORKDIR /root/code/HFO/build
 RUN make -j4
@@ -101,4 +74,10 @@ RUN make install
 
 WORKDIR /root/code/HFO
 RUN pip install .
+
+WORKDIR /root/code/
+RUN git clone https://github.com/openai/gym-soccer.git
+
+RUN cd gym-soccer && \
+    pip install -e .
 
