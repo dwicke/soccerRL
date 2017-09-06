@@ -37,9 +37,9 @@ ENV PATH /opt/conda/envs/deeprlbootcamp/bin:$PATH
 
 RUN echo "source activate deeprlbootcamp" >> /root/.bashrc
 
-ADD _build/environment.yml /tmp/environment.yml
+#ADD _build/environment.yml /tmp/environment.yml
 
-RUN conda env update -f /tmp/environment.yml
+#RUN conda env update -f /tmp/environment.yml
 
 
 RUN apt-get install -y xvfb
@@ -85,3 +85,7 @@ RUN cd $ROBOSCHOOL_PATH && git pull origin master && git checkout a7e7fd5cc8f81e
 RUN apt-get install -y iproute iputils-ping
 
 #RUN conda install -y -n deeprlbootcamp notebook
+
+
+
+RUN git clone https://github.com/LARG/HFO.git
