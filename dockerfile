@@ -86,6 +86,15 @@ RUN apt-get install -y iproute iputils-ping
 
 #RUN conda install -y -n deeprlbootcamp notebook
 
+RUN apt-get install -y libboost-filesystem-dev libboost-system-dev flex
 
-
-RUN git clone https://github.com/LARG/HFO.git
+WORKDIR /root/code/
+RUN git clone https://github.com/LARG/HFO.git && \
+    cd HFO && \
+    mkdir build && \
+    cd build && \
+    cmake -DBUILD_SOCCERWINDOW=False -DCMAKE_BUILD_TYPE=RelwithDebInfo ..
+    
+WORKDIR /root/code/HFO/build
+RUN make -j4
+RUN make install
