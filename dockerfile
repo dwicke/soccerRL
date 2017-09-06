@@ -98,3 +98,7 @@ RUN git clone https://github.com/LARG/HFO.git && \
 WORKDIR /root/code/HFO/build
 RUN make -j4
 RUN make install
+
+WORKDIR /root/code/HFO
+RUN pip install .
+
