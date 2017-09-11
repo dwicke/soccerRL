@@ -49,3 +49,12 @@ RUN git clone https://github.com/openai/gym-soccer.git
 RUN cd gym-soccer && \
     pip install -e .
 
+## Need this in order for gym-soccer to work
+RUN conda install libgcc
+
+## install pytorch numpy scipy
+
+RUN conda install pytorch torchvision -c soumith
+RUN conda install -c anaconda numpy
+RUN conda install -c anaconda scipy 
+
