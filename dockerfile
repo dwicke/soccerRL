@@ -63,7 +63,8 @@ WORKDIR /root/code/HFO
 RUN pip install .
 
 WORKDIR /root/code/
-RUN git clone https://github.com/openai/gym-soccer.git
+# Use changed code
+RUN git clone https://github.com/dwicke/gym-soccer.git
 
 RUN cd gym-soccer && \
     pip install -e .
