@@ -25,6 +25,8 @@ RUN apt-get install -y cmake build-essential pkg-config libpython3-dev \
 # ======== configure python environment ========
 WORKDIR /root/code/
 
+RUN echo 'new clone'
+
 # The environmental file for parameterized is in soccerrl
 RUN git clone https://github.com/dwicke/soccerRL.git  soccerrl
 
@@ -78,5 +80,4 @@ RUN conda install libgcc
 # RUN conda install -c anaconda numpy
 # RUN conda install -c anaconda scipy
 
-RUN echo 'new'
 
